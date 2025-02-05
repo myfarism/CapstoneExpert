@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">Capstone Expert</string>
+    <string name="image_description">Image Description</string>
+    <string name="menu_favorite">Favourite</string>
+    <string name="text_subtitle">text subtittle</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="text_primary">Tittle</string>
+    <string name="no_data">Empty Data</string>
+    <string name="something_wrong">Sum Ting Wong</string>
+    <string name="menu_home">Home</string>
+    <string name="navigation_drawer_open">Open</string>
+    <string name="navigation_drawer_close">Close</string>
+    <string name="read_more">Read More</string>
+</resources>
