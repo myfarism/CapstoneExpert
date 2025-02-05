@@ -15,7 +15,6 @@ import kotlinx.coroutines.flow.map
 class NewsRepository(
     private val remoteDataSource: RemoteDataSource,
     private val localDataSource: LocalDataSource,
-    private val appExecutors: AppExecutors
 ) : INewsRepository {
     override fun getAllNews(): Flow<Resource<List<News>>> =
         object : NetworkBoundResource<List<News>, List<NewsResponse>>() {

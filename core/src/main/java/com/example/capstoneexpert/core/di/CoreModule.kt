@@ -8,9 +8,13 @@ import com.example.capstoneexpert.core.data.source.remote.RemoteDataSource
 import com.example.capstoneexpert.core.data.source.remote.network.ApiService
 import com.example.capstoneexpert.core.domain.repository.INewsRepository
 import com.example.capstoneexpert.core.utils.AppExecutors
+import net.sqlcipher.database.SQLiteDatabase
+import net.sqlcipher.database.SupportFactory
+import okhttp3.CertificatePinner
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import org.koin.android.ext.koin.androidContext
+import org.koin.core.scope.get
 import org.koin.dsl.module
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -19,19 +23,29 @@ import java.util.concurrent.TimeUnit
 val databaseModule = module {
     factory { get<NewsDatabase>().newsDao() }
     single {
+        val passphrase: ByteArray = SQLiteDatabase.getBytes("faris".toCharArray())
+        val factory = SupportFactory(passphrase)
         Room.databaseBuilder(
             androidContext(),
             NewsDatabase::class.java, "News.db"
-        ).fallbackToDestructiveMigration().build()
+        ).fallbackToDestructiveMigration()
+            .openHelperFactory(factory)
+            .build()
     }
 }
 
 val networkModule = module {
     single {
+        val hostname = "saurav.tech"
+        val certificatePinner = CertificatePinner.Builder()
+            .add(hostname, "sha256/T4OcKVSnUyUYA8NnPVrjF0Q/QPKRSvQV4dlj3atWuf4=")
+            .build()
+
         OkHttpClient.Builder()
             .addInterceptor(HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
             .connectTimeout(120, TimeUnit.SECONDS)
             .readTimeout(120, TimeUnit.SECONDS)
+            .certificatePinner(certificatePinner)
             .build()
     }
     single {
@@ -49,8 +63,7 @@ val repositoryModule = module {
     single { RemoteDataSource(get()) }
     factory { AppExecutors() }
     single<INewsRepository> {
-        com.example.capstoneexpert.core.data.NewsRepository(
-            get(),
+        NewsRepository(
             get(),
             get()
         )

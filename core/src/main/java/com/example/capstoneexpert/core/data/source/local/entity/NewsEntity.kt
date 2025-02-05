@@ -10,9 +10,6 @@ data class NewsEntity(
     @ColumnInfo(name = "url")
     val url: String,
 
-    @ColumnInfo(name = "source_name")
-    val sourceName: String,
-
     @ColumnInfo(name = "author")
     val author: String?,
 

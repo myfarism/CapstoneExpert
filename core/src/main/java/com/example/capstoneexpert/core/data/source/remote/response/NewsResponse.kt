@@ -3,9 +3,6 @@ package com.example.capstoneexpert.core.data.source.remote.response
 import com.google.gson.annotations.SerializedName
 
 data class NewsResponse(
-    @field:SerializedName("source")
-    val source: SourceResponse,
-
     @field:SerializedName("author")
     val author: String?,
 

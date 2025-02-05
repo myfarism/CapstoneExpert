@@ -13,7 +13,6 @@ object DataMapper {
                 description = it.description,
                 title = it.title,
                 urlToImage = it.urlToImage,
-                sourceName = it.source.toString(),
                 publishedAt = it.publishedAt,
                 content = it.content,
                 author = it.author,
@@ -34,7 +33,6 @@ object DataMapper {
                 publishedAt = it.publishedAt,
                 content = it.content,
                 author = it.author,
-                sourceName = it.sourceName,
                 isFavorite = it.isFavorite
             )
         }
@@ -47,7 +45,6 @@ object DataMapper {
         publishedAt = input.publishedAt,
         content = input.content,
         author = input.author,
-        sourceName = input.sourceName,
         isFavorite = input.isFavorite
     )
 }

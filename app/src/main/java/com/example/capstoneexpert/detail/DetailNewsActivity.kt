@@ -5,12 +5,9 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.widget.Toast
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.content.IntentCompat.getParcelableExtra
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.example.capstoneexpert.R
@@ -36,7 +33,7 @@ class DetailNewsActivity : AppCompatActivity() {
                 val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
                 startActivity(intent)
             } ?: run {
-                Toast.makeText(this, "URL artikel tidak valid", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, getString(R.string.invalid_url_article), Toast.LENGTH_SHORT).show()
             }
         }
     }
@@ -45,9 +42,11 @@ class DetailNewsActivity : AppCompatActivity() {
     private fun showDetailNews(detailNews: News?) {
         detailNews?.let {
             supportActionBar?.title = detailNews.title
-            binding.contentDetailNews.tvDetailTitle.text = detailNews.title
-            binding.contentDetailNews.tvDetailAuthor.text = "Author: ${detailNews.author ?: "Unknown"}"
-            binding.contentDetailNews.tvDetailDescription.text = detailNews.description
+            with(binding.contentDetailNews) {
+                binding.contentDetailNews.tvDetailTitle.text = detailNews.title
+                binding.contentDetailNews.tvDetailAuthor.text = "Author: ${detailNews.author ?: "Unknown"}"
+                binding.contentDetailNews.tvDetailDescription.text = detailNews.description
+            }
             Glide.with(this@DetailNewsActivity)
                 .load(detailNews.urlToImage)
                 .apply(RequestOptions().centerCrop())
@@ -64,11 +63,8 @@ class DetailNewsActivity : AppCompatActivity() {
     }
 
     private fun setStatusFavorite(statusFavorite: Boolean) {
-        if (statusFavorite) {
-            binding.fab.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.ic_favorite_white))
-        } else {
-            binding.fab.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.ic_not_favorite_white))
-        }
+        val image = if (statusFavorite) R.drawable.ic_favorite_white else R.drawable.ic_not_favorite_white
+        binding.fab.setImageDrawable(ContextCompat.getDrawable(this, image))
     }
 
     companion object {

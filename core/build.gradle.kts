@@ -67,4 +67,7 @@ dependencies {
 
     api(libs.androidx.monitor)
     api(libs.androidx.junit.ktx)
+
+    implementation(libs.android.database.sqlcipher)
+    implementation(libs.androidx.sqlite.ktx)
 }
