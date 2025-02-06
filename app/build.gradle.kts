@@ -49,4 +49,6 @@ android {
 
 dependencies {
     implementation(project(":core"))
+    debugImplementation ("com.squareup.leakcanary:leakcanary-android:2.12")
+    implementation(libs.lottie)
 }

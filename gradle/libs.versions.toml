@@ -24,6 +24,8 @@ monitor = "1.7.2"
 junitKtx = "1.2.1"
 androidDatabaseSqlcipher = "4.5.4"
 sqliteKtx = "2.4.0"
+lottie = "6.6.2"
+
 
 [libraries]
 androidx-core-ktx = { module = "androidx.core:core-ktx", version.ref = "coreKtx" }
@@ -53,6 +55,7 @@ androidx-monitor = { group = "androidx.test", name = "monitor", version.ref = "m
 androidx-junit-ktx = { group = "androidx.test.ext", name = "junit-ktx", version.ref = "junitKtx" }
 android-database-sqlcipher = { module = "net.zetetic:android-database-sqlcipher", version.ref = "androidDatabaseSqlcipher" }
 androidx-sqlite-ktx = { module = "androidx.sqlite:sqlite-ktx", version.ref = "sqliteKtx" }
+lottie = { module = "com.airbnb.android:lottie", version.ref = "lottie" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
