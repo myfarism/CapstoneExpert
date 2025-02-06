@@ -49,6 +49,14 @@ android {
 
 dependencies {
     implementation(project(":core"))
+    implementation(libs.androidx.appcompat)
+    implementation(libs.material)
+    implementation(libs.androidx.activity)
+    implementation(libs.androidx.constraintlayout)
+    implementation(libs.core.ktx)
+    implementation(libs.core.ktx)
+    implementation(libs.core.ktx)
+    implementation(libs.core.ktx)
     debugImplementation (libs.leakcanary.android)
     implementation(libs.lottie)
     implementation(libs.shimmer)
