@@ -51,4 +51,5 @@ dependencies {
     implementation(project(":core"))
     debugImplementation (libs.leakcanary.android)
     implementation(libs.lottie)
+    implementation(libs.shimmer)
 }
