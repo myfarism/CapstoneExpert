@@ -1,37 +1,64 @@
 version: 2.1
- 
+
 orbs:
   android: circleci/android@0.2.1
- 
+
 jobs:
   build:
     executor: android/android
     steps:
       - checkout
-      - restore_cache:
-          key: android-orb-v1-
+
       - run:
-          name: Chmod permissions
+          name: Check Java Version
+          command: java --version
+
+      - run:
+          name: Set Java 11
+          command: |
+            sudo apt-get update
+            sudo apt-get install openjdk-11-jdk
+            sudo update-alternatives --config java
+            java --version
+
+      - restore_cache:
+          key: "android-orb-v1-{{ checksum 'build.gradle' }}"  # More specific cache key based on gradle file
+
+      - run:
+          name: Chmod Gradle Wrapper
           command: sudo chmod +x ./gradlew
+
       - run:
           name: Download Dependencies
           command: ./gradlew androidDependencies
+
       - save_cache:
-          key: 'android-orb-v1-{{ epoch }}'
+          key: "android-orb-v1-{{ checksum 'build.gradle' }}-{{ epoch }}"  # Cache key with checksum and epoch
           paths:
             - ~/.android/build-cache
             - ~/.android/cache
+
       - run:
           name: Run Build
           command: ./gradlew build
-      - store_artifacts: 
+
+      - store_artifacts:
           path: app/build/reports
           destination: reports
+
       - run:
           name: Run Tests
           command: ./gradlew lint test
+
       - store_test_results:
           path: app/build/test-results
+
       - store_artifacts:  
           path: app/build/outputs/apk/debug/
           destination: artifact-file
+
+workflows:
+  version: 2
+  build:
+    jobs:
+      - build
